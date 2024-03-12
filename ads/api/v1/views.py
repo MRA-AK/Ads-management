@@ -1,12 +1,12 @@
-from rest_framework import permissions, viewsets
+from rest_framework import generics, permissions, viewsets
 
-from ads.models import Ad
+from ads.models import Ad, Comment
 
-from .serializers import AdSerializer
+from .serializers import AdSerializer, CommentSerializer
 
 
 class AdViewSet(viewsets.ModelViewSet):
-    queryset = Ad.objects.all()
+    queryset = Ad.objects.prefetch_related("comments").all()
     serializer_class = AdSerializer
 
     def get_permissions(self):
@@ -28,3 +28,14 @@ class AdViewSet(viewsets.ModelViewSet):
         if self.request.user.is_authenticated:
             queryset = queryset.filter(user=self.request.user)
         return queryset
+
+
+class CommentCreateAPIView(generics.CreateAPIView):
+    """Create a new comment"""
+
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

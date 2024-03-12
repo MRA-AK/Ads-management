@@ -9,4 +9,5 @@ router.register("ads", views.AdViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("comment/", views.CommentCreateAPIView.as_view(), name="create_comment"),
 ]
