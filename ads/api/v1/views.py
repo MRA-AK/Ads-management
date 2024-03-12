@@ -2,12 +2,14 @@ from rest_framework import generics, permissions, viewsets
 
 from ads.models import Ad, Comment
 
+from .paginations import DefaultPageNumberPagination
 from .serializers import AdSerializer, CommentSerializer
 
 
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.prefetch_related("comments").all()
     serializer_class = AdSerializer
+    pagination_class = DefaultPageNumberPagination
 
     def get_permissions(self):
         """
