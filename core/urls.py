@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # API endpoints
     path("users/api/v1/", include("users.api.v1.urls")),
+    path("social/api/v1/", include("ads.api.v1.urls")),
 ]
 
 # Swagger API documentation
