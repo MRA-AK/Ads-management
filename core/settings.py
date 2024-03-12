@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 from decouple import config
@@ -29,6 +30,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # DRF
     "rest_framework",
+    "djoser",
+    "drf_yasg",
     # Local apps
     "users.apps.UsersConfig",
 ]
@@ -123,3 +126,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Use Custom user model
 AUTH_USER_MODEL = "users.CustomUser"
+
+
+# Django rest framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # "PAGE_SIZE": 10,
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+}
+
+DJOSER = {
+    "HIDE_USERS": False,
+    "PERMISSIONS": {
+        "user_list": ["rest_framework.permissions.IsAdminUser"],
+    },
+}
