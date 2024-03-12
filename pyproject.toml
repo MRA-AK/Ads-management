@@ -24,5 +24,7 @@ skip = [".venv", "migrations",]
 
 
 [tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "core.settings"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 pythonpath = "."
 addopts = "-v -p no:warnings"
