@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # Local apps
     "users.apps.UsersConfig",
+    "ads.apps.AdsConfig",
 ]
 
 MIDDLEWARE = [
